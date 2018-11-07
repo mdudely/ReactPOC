@@ -1,0 +1,20 @@
+header.AppHeader {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+div.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    height: 5em;
+    background-color: lightblue;
+}
+
+div.buttonContainer > button {
+    height: 2em;
+    width: 15em;
+    align-self: center;
+    margin-top: 0.5em;
+}

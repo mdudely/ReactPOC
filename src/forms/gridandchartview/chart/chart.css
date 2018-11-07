@@ -1,0 +1,11 @@
+div.rdr-DateRange {
+    display: flex;
+    align-self: center;
+    background-color: lightgray !important;
+}
+
+div.Chart {
+    display: flex;
+    align-self: center;
+    background-color: lightgray;
+}
