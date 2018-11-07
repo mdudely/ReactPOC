@@ -16,7 +16,7 @@ class Chart extends Component {
         this.dateRangeChanged = this.dateRangeChanged.bind(this);
     }
 
-
+    //Gets date range from either initial state or modified state based on the date picker
     getDateRange() {
         var Dates = [];
 
@@ -31,6 +31,7 @@ class Chart extends Component {
         return Dates;
     }
 
+    //Handler when the date changes.  This performs the setState operation.
     dateRangeChanged(dates) {
         console.log("Date Rate Changed!");
         //debugger;
@@ -44,7 +45,21 @@ class Chart extends Component {
         //debugger;
     }
 
+    getTickPositions(tickCount) {
+        var tickArray = [];
+        var initialTick = -25;
 
+        for(var x=0; x<tickCount; x++)
+        {
+            initialTick = initialTick +24;
+            tickArray.push(initialTick);
+        }
+        return tickArray;
+        //debugger;
+    }
+
+    //Concatenates the dates in order and their hours arrays in order to
+    //translate to the series requirement for highcharts.
     getHoursArray(recordType, records) {
         var RecordMappings = records.filter(value => {
             //debugger;
@@ -108,6 +123,17 @@ class Chart extends Component {
             MeterDisplay = "Meter " + MeterString + " usage data: "+ (sDate.getMonth() + 1) + '/' + sDate.getDate() + '/' + sDate.getFullYear() + " - " +
                 (eDate.getMonth() + 1) + '/' + eDate.getDate() + '/' + eDate.getFullYear()
 
+        let tickCount = WSLData.length / 24;
+
+        let tickPositions;
+        //debugger;
+        if(tickCount > 0)
+            tickPositions = this.getTickPositions(tickCount);
+        else
+            tickPositions = [0];
+
+        //debugger;
+
         let config =  {
             chart: {
                 type: 'area'
@@ -122,7 +148,8 @@ class Chart extends Component {
                 type: 'datetime',
                 categories: selectedDateRange,
                 tickmarkPlacement: 'on',
-                tickInterval: 3600 * 1000,
+                //tickInterval: 24 * 3600 * 1000,
+                tickPositions: tickPositions,
                 labels: {
                     format: '{value:%Y-%m-%d}'
                 },
